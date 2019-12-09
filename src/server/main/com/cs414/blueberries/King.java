@@ -120,11 +120,13 @@ public class King extends Piece {
         }
         for(int i = 0; i < ourPieces.size(); i++) {
             //capture
+            Point old = ourPieces.get(i).getLocation();
             for (int j = 0; j < enemyPieces.size(); j++) {
                 if (ourPieces.get(i).getPossibleMoves().contains(enemyPieces.get(j).getLocation()) == true) {
                     Board newBoard = this.board;
                     newBoard.movePiece(ourPieces.get(i), enemyPieces.get(j).getLocation(), -1);
                     if (isCheck(newBoard) == false) {
+                        newBoard.movePiece(ourPieces.get(i), old, -1);
                         return false;
                     }
                 }
@@ -147,6 +149,7 @@ public class King extends Piece {
                     System.out.println("new moves : " + newBoard.getAllMovesOfColor(PieceColor.BLACK));
 
                     if (isCheck(newBoard) == false) {
+                        newBoard.movePiece(ourPieces.get(i), old, -1);
                         System.out.println("is false");
                         return false;
                     }
